@@ -1,0 +1,2 @@
+flask
+genomelink>=0.1.6
