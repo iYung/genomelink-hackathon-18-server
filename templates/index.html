@@ -6,7 +6,12 @@
   <script>
     window.onload = function() {
       if ("{{token}}" !== ""){
-        window.location.replace("glhack://" + "{{token}}")
+        var suffix = ""
+        JSON.parse("{{reports}}").forEach(function(i){
+          suffix += "/" + i
+        })
+        alert(suffix)
+        window.location.replace("glhack:/" + suffix)
       }  
     };
   </script>
@@ -28,45 +33,6 @@
     }
   </style>
   <body>
-      <a href="{{ authorize_url }}" class="btn btn-default">Connect with genome</a>
-    <!-- <div class="container">
-      <div class="page-header">
-        <p class="lead">{{ token }}</p>
-      </div>
-
-      {% with messages = get_flashed_messages() %}
-        {% if messages %}
-          {% for message in messages %}
-            <div class="alert alert-danger" role="alert">
-              <span class="glyphicon glyphicon-exclamation-sign" aria-hidden="true"></span>
-                {{ message }}
-            </div>
-          {% endfor %}
-        {% endif %}
-      {% endwith %}
-
-      {% if not reports %}
-      <a href="{{ authorize_url }}" class="btn btn-default">Connect with genome</a>
-      {% else %}
-      <table class="table">
-        <caption>Genome</caption>
-        <thead>
-          <tr>
-            <th>Name</th>
-            <th>Genetic insights</th>
-          </tr>
-        </thead>
-        <tbody>
-          {% for report in reports %}
-          <tr>
-            <th scope="row">{{ report.phenotype.display_name }}</th>
-            <td>{{ report.summary.text }}</td>
-          </tr>
-          {% endfor %}
-        </tbody>
-      </table>
-      {% endif %}
-
-    </div> -->
+      <a href="{{ authorize_url }}" class="btn btn-default">Connect with Genomelink</a>
   </body>
 </html>

@@ -1,5 +1,6 @@
 from flask import Flask, flash, render_template, request, redirect, session, url_for
 import genomelink
+import json
 
 def create_app():
     app = Flask(__name__)
@@ -7,16 +8,19 @@ def create_app():
 
     @app.route('/')
     def index():
-        authorize_url = genomelink.OAuth.authorize_url(scope=['report:eye-color report:beard-thickness report:morning-person'])
+        authorize_url = genomelink.OAuth.authorize_url(scope=['report:intelligence report:depression report:openness report:extraversion'])
 
         # Fetching a protected resource using an OAuth2 token if exists.
         reports = []
         userToken = ""
+        jsonReports = []
         if session.get('oauth_token'):
-            for name in ['eye-color', 'beard-thickness', 'morning-person']:
+            for name in ["intelligence", "depression", "openness", "extraversion"]:
                 reports.append(genomelink.Report.fetch(name=name, population='european', token=session['oauth_token']))
             userToken = session['oauth_token']['access_token']
-        return render_template('index.html', authorize_url=authorize_url, reports=reports, token=userToken)
+            for report in reports:
+                jsonReports.append(report.summary["score"])
+        return render_template('index.html', authorize_url=authorize_url, reports=jsonReports, token=userToken)
 
     @app.route('/callback')
     def callback():
