@@ -10,7 +10,8 @@
         JSON.parse("{{reports}}").forEach(function(i){
           suffix += "/" + i
         })
-        window.location.replace("glhack:/" + suffix)
+        console.log("glhack:/" + suffix + "/{{token}}")
+        window.location.replace("glhack:/" + suffix + "/{{token}}")
       }  
     };
   </script>
