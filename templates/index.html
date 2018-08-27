@@ -5,6 +5,7 @@
   </head>
   <script>
     window.onload = function() {
+     alert("{{token}}");
       if ("{{token}}" !== ""){
         var suffix = ""
         JSON.parse("{{reports}}").forEach(function(i){
