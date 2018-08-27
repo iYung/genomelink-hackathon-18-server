@@ -51,5 +51,5 @@ if __name__ == '__main__':
     # Run local server on port 5000.
     app = create_app()
     app.secret_key = os.urandom(24)
-    print os.environ['PORT']
+    print(os.environ['PORT'])
     app.run(debug=True, host='0.0.0.0', port=os.environ['PORT'])
